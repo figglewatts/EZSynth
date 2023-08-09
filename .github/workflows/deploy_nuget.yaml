@@ -1,0 +1,56 @@
+name: Deploy to NuGet
+
+permissions:
+  contents: write
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version Number'
+        required: true
+      project:
+        description: 'Project'
+        required: true
+        type: choice
+        options:
+          - EZSynth
+          - EZSynth.Implementations
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.x'
+
+      - name: Build and Pack
+        working-directory: ${{ github.event.inputs.project }}
+        run: |
+          dotnet build --configuration Release
+          dotnet pack --configuration Release --no-build -p:Version=${{ github.event.inputs.version }} -o out
+
+      - name: Push to NuGet
+        working-directory: ${{ github.event.inputs.project }}
+        run: dotnet nuget push out/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+
+      - name: Set up Git user
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+      - name: Create Tag
+        run: |
+          $tag=${{ github.event.inputs.version }}
+          if ! git rev-parse $tag >/dev/null 2>&1; then
+            git tag $tag
+            git push origin $tag
+          else
+            echo "Tag $tag already exists!"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

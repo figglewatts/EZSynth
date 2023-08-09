@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EZSynth", "EZSynth\EZSynth.csproj", "{1BD4A997-4DB8-4784-A5E5-13EEBEC4CA11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EZSynth.Implementations", "EZSynth.Implementations\EZSynth.Implementations.csproj", "{DAFF7881-0715-4395-A263-A65460F9B546}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1BD4A997-4DB8-4784-A5E5-13EEBEC4CA11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BD4A997-4DB8-4784-A5E5-13EEBEC4CA11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BD4A997-4DB8-4784-A5E5-13EEBEC4CA11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BD4A997-4DB8-4784-A5E5-13EEBEC4CA11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAFF7881-0715-4395-A263-A65460F9B546}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAFF7881-0715-4395-A263-A65460F9B546}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAFF7881-0715-4395-A263-A65460F9B546}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAFF7881-0715-4395-A263-A65460F9B546}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

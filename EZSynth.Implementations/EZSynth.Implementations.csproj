@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <ImplicitUsings>disable</ImplicitUsings>
+        <Nullable>disable</Nullable>
+        <Version />
+        <Title>EZSynth.Implementations</Title>
+        <Authors>Figglewatts</Authors>
+        <Description>C# synthesizer designed to be extensible and generic in terms of formats of audio and sequence data.</Description>
+        <PackageProjectUrl>https://github.com/figglewatts/EZSynth</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/figglewatts/EZSynth</RepositoryUrl>
+        <PackageTags>synth</PackageTags>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Content Include="..\README.md" Pack="true" PackagePath="\">
+            <Link>README.md</Link>
+        </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Melanchall.DryWetMidi" Version="7.0.0" />
+        <PackageReference Include="EZSF2" Version="0.1.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\EZSynth\EZSynth.csproj" />
+    </ItemGroup>
+</Project>
