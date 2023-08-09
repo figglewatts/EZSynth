@@ -45,7 +45,7 @@ jobs:
 
       - name: Create Tag
         run: |
-          $tag=${{ github.event.inputs.version }}
+          tag="${{ github.event.inputs.version }}"
           if ! git rev-parse $tag >/dev/null 2>&1; then
             git tag $tag
             git push origin $tag
