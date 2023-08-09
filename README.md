@@ -11,12 +11,14 @@ Install via [NuGet](https://www.nuget.org/):
 
 ```sh
 Install-Package EZSynth -Version x.x.x
+Install-Package EZSynth.Implementations -Version x.x.x
 ```
 
 Or via the .NET CLI:
 
 ```sh
 dotnet add package EZSynth --version x.x.x
+dotnet add package EZSynth.Implementations --version x.x.x
 ```
 
 ## Usage
