@@ -126,6 +126,7 @@ namespace EZSynth.Synthesizer
             ensureInstrumentExists(id);
             InstrumentData instrumentData = _instrumentData[id];
             var (sampler, voiceParams) = Soundbank.GetSampler(instrumentData.ProgramNumber, note, velocity);
+            if (sampler == null) return; // sometimes the soundbank will want to not play certain sounds
             voiceParams.Velocity = MidiUtil.VelocityToFloat(velocity);
             voiceParams.Pitch = instrumentData.Pitch;
             voiceParams.Pan = instrumentData.Pan;
