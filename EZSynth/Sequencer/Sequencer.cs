@@ -8,6 +8,8 @@ namespace EZSynth.Sequencer
         public ISequence Sequence { get; set; }
         public Synth Synth { get; set; }
 
+        public int BufferSize { get; set; } = 2048;
+
         /// <summary>
         /// The amount of time it takes in seconds for the sequencer play a single beat.
         /// </summary>
@@ -40,12 +42,26 @@ namespace EZSynth.Sequencer
 
         public short[] Render()
         {
+            Synth.Soundbank.SetSampleRate(Synth.SampleRate);
             _lastTickProcessedTime = -1;
             int numSamples = (int)Math.Ceiling(Sequence.GetLengthSeconds(SecondsPerTick) * Synth.SampleRate);
             short[] resultSamples = new short[numSamples * 2]; // stereo, so 2 channels
-            for (int i = 0; i < numSamples; i++)
+            short[] buffer = new short[BufferSize * 2];
+            for (int i = 0; i < numSamples; i+=BufferSize)
             {
-                double t = (double)i / Synth.SampleRate;
+                int samplesToRender = Math.Min(BufferSize, numSamples - i);
+                renderSamples(i, buffer, samplesToRender);
+                Array.Copy(buffer, 0, resultSamples, i * 2, samplesToRender * 2);
+            }
+
+            return resultSamples;
+        }
+
+        protected void renderSamples(int sampleNum, short[] buffer, int sampleCount)
+        {
+            for (int i = 0; i < sampleCount; i++)
+            {
+                double t = (double)sampleNum / Synth.SampleRate;
 
                 // figure out if it's time to tick the sequence
                 if (shouldProcessTick(t, out int tickNumber))
@@ -59,11 +75,11 @@ namespace EZSynth.Sequencer
                 }
 
                 var (left, right) = Synth.Sample();
-                resultSamples[i * 2] = left;
-                resultSamples[i * 2 + 1] = right;
-            }
+                buffer[i * 2] = left;
+                buffer[i * 2 + 1] = right;
 
-            return resultSamples;
+                sampleNum++;
+            }
         }
 
         /// <summary>

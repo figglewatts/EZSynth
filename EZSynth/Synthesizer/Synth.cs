@@ -118,7 +118,7 @@ namespace EZSynth.Synthesizer
             // sometimes people use a NoteOn event with a velocity of 0 to indicate a NoteOff event, so let's handle that
             if (velocity <= 0)
             {
-                NoteOff(note, id);
+                NoteOff(id, note);
                 return;
             }
 
@@ -224,7 +224,7 @@ namespace EZSynth.Synthesizer
         /// </summary>
         protected void cleanupInactiveVoices()
         {
-            var nonActiveVoices = _activeVoices.Where(kvp => !kvp.Value.Active);
+            var nonActiveVoices = _activeVoices.Where(kvp => !kvp.Value.Active).ToList();
             foreach (var kvp in nonActiveVoices)
             {
                 _activeVoices.Remove(kvp.Key);
@@ -256,7 +256,7 @@ namespace EZSynth.Synthesizer
         {
             // we could throw an error if there's no program associated with this instrument, but we want to be
             // easy to use, so instead let's just ensure unknown IDs have a program number of zero
-            _instrumentData.TryAdd(id, new InstrumentData());
+            _instrumentData.TryAdd(id, new InstrumentData { ProgramNumber = id });
         }
     }
 }

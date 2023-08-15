@@ -47,9 +47,9 @@ namespace EZSynth.Synthesizer
             if (Sampler == null) throw new InvalidOperationException("unable to Sample() null Sampler");
         
             var (left, right) = Sampler.Sample(Parameters.Pitch * _synth.MaxPitchBend);
+            (left, right) = applyVolume(left, right);
             (left, right) = applyVolumeEnvelope(left, right);
             (left, right) = applyPan(left, right);
-            (left, right) = applyVolume(left, right);
             _timesSampled++;
             return (left, right);
         }
@@ -65,6 +65,7 @@ namespace EZSynth.Synthesizer
             Parameters = voiceParameters;
             _velocity = Parameters.Velocity;
             _timesSampled = 0;
+            _released = false;
         }
 
         /// <summary>

@@ -8,15 +8,7 @@ namespace EZSynth.Sequencer.Event
     
         public override void Handle(Synth synth, Sequencer sequencer)
         {
-            // handle drum kits
-            if (InstrumentID == 9)
-            {
-                synth.UseProgram(InstrumentID, 128);
-            }
-            else
-            {
-                synth.UseProgram(InstrumentID, Program);
-            }
+            synth.UseProgram(InstrumentID, Program);
         }
     }
 }
